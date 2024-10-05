@@ -1,0 +1,64 @@
+---
+title: "Untitled"
+author: "JOHN CARLOS QUINTERO & DWIGHT JIRO GONZALES"
+date: "2024-05-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+3.
+
+```{r}
+# average rate job per min
+lambda2 <- 2
+
+# (a) more than 2 jobs, 1 min
+p_2_in_1 <- 1 - ppois(2, lambda2)
+cat("The probability of having more than 2 jobs in one minute: ", p_2_in_1 * 100, "% \n")
+## The probability of having more than 2 jobs in one minute:  32.33236 %
+
+# (b) 30 sec interval, 2 jobs
+p_30_between_2 <- ppois(1, lambda2/2)
+cat("The probability of having an interval of at least 30 seconds in two jobs: ", p_30_between_2 * 100, "%\n")
+## The probability of having an interval of at least 30 seconds in two jobs:  73.57589 %
+
+# less than 30 sec interval, 2 jobs
+p_30less_between_2 <- 1 - p_30_between_2
+cat("The probability of having less than 30 seconds interval in two jobs: ", p_30less_between_2 * 100, "%\n")
+## The probability of having less than 30 seconds interval in two jobs:  26.42411 %
+
+# (d) job after 30, where 30 has no job
+p_30_after_30 <- 1 - exp(-lambda2/2)
+cat("The probability that a job will arrive in the next 30 seconds, after 30 seconds of nothing: ", p_30_after_30 * 100, "%\n")
+## The probability that a job will arrive in the next 30 seconds, after 30 seconds of nothing:  63.21206 %
+
+
+
+```
+1.
+
+```{r}
+# With lambda = 4 per minute, we can obtain the probability based on time
+lambda1 <- 4
+
+# at most 15
+p_at_15 <- 1 - exp(-lambda1/60 * 0.25)
+cat("P(T ≤ 0.25) =", p_at_15 * 100, "% \n")
+## P(T ≤ 0.25) = 1.652855 %
+
+# greater than 30
+p_more_30 <- exp(-lambda1/60 * 0.5)
+cat("P(T > 0.5) =", p_more_30 * 100, "%\n")
+## P(T > 0.5) = 96.72161 %
+
+# 15 to a minute
+p_15_60 <- exp(-lambda1/60 * 0.25) - exp(-lambda1/60 * 1)
+cat("P(0.25 < T < 1) =", p_15_60 * 100, "%\n")
+## P(0.25 < T < 1) = 4.796447 %
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
